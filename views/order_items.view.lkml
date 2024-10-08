@@ -41,6 +41,29 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
+  measure: dyn_saleprice {
+    label_from_parameter: aggregatie_selector
+    type: number
+    sql: {% parameter aggregatie_selector%}(${sale_price}) ;;
+  }
+
+  parameter: aggregatie_selector {
+    label: "Pick the aggregation"
+    type: unquoted
+    allowed_value: {
+      label: "MAX"
+      value: "MAX"
+    }
+    allowed_value: {
+      label: "Total"
+      value: "SUM"
+    }
+    allowed_value: {
+      label: "Average"
+      value: "AVG"
+    }
+    default_value: "SUM"
+  }
   dimension_group: shipped {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
@@ -63,16 +86,16 @@ view: order_items {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-	id,
-	users.last_name,
-	users.id,
-	users.first_name,
-	inventory_items.id,
-	inventory_items.product_name,
-	products.name,
-	products.id,
-	orders.order_id
-	]
+  id,
+  users.last_name,
+  users.id,
+  users.first_name,
+  inventory_items.id,
+  inventory_items.product_name,
+  products.name,
+  products.id,
+  orders.order_id
+  ]
   }
 
 }
