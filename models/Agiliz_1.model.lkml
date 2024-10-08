@@ -3,12 +3,12 @@ connection: "retail_bigquery"
 # include all the views
 include: "/views/**/*.view.lkml"
 
-datagroup: jumpstart_17_default_datagroup {
+datagroup: agiliz1_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
-persist_with: jumpstart_17_default_datagroup
+persist_with: agiliz1_default_datagroup
 
 explore: distribution_centers {}
 
